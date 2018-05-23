@@ -12,11 +12,11 @@ make_files(){
         mkdir $1$display_num
         cd $1$display_num
         touch input.txt
-        if [[ "$1" -eq "abc" ]] ; then
+        if [[ $1 = "abc"  ]] ; then
             L=(A B C D)
-        elif [[ "$1" -eq "agc" ]]; then
+        elif [[ $1 = "agc" ]]; then
             L=(A B C D E F)
-        elif [[ "$1" -eq "arc" ]]; then
+        elif [[ $1 = "arc" ]]; then
             if [[ "$2" -gt 57 ]]; then
                 L=(C D E F)
             else
@@ -29,4 +29,4 @@ make_files(){
         done
     fi
 }
-make_files abc 95
+make_files $1 $2
