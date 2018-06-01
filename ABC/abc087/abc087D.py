@@ -51,19 +51,19 @@ class WDG():  # 重み付き有向グラフ(隣接リスト表現)
         while node != s_head:
             new_x = self.x[s_head.index] + node.weight
             if self.x[node.index] is not None and self.x[node.index] != new_x:
+                #print("node{}NG".format(node.index + 1))
                 return False
             elif self.x[node.index] == new_x:
                 pass
             else:
                 #print("node{}".format(node.index + 1))
                 self.x[node.index] = new_x
-                self._DFS(self.heads[node.index])
+                return self._DFS(self.heads[node.index])
             node = node.next
         return True
 
     def DFS(self):  # すべての点を訪れるまで深さ優先探索
         for i in range(self.N):
-            #print("{}個目の連結成分".format(i + 1))
             node = self.heads[i]
             if self.x[node.index] is None:
                 self.x[node.index] = 0
