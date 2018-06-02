@@ -1,3 +1,4 @@
+from collections import deque
 N, M = map(int, input().split())
 L = []
 R = []
@@ -22,6 +23,7 @@ class WDG():  # 重み付き有向グラフ(隣接リスト表現)
         self.heads = []
         self.x = [None] * N
         self.N = N
+        self.q = deque()
         for i in range(N):
             head = WDG.node()
             head.next = head
@@ -70,7 +72,31 @@ class WDG():  # 重み付き有向グラフ(隣接リスト表現)
                     return "No"
         return "Yes"
 
+    def _BFS(self, s_head):
+        self.q.append(s_head)
+        while len(self.q) != 0:
+            p = self.q.popleft()
+            node = p.next
+            while node != p:
+                if self.x[node.index] is None:
+                    self.x[node.index] = self.x[p.index] + node.weight
+                    self.q.append(self.heads[node.index])
+                elif self.x[node.index] != self.x[p.index] + node.weight:
+                    return False
+                node = node.next
+        return True
+
+    def BFS(self):
+        for i in range(self.N):
+            node = self.heads[i]
+            if self.x[i]is None:
+                self.x[i] = 0
+                if not self._BFS(node):
+                    return "No"
+        return "Yes"
+
 
 G = WDG(N, M, L, R, D)
 # G.show_graph()
-print(G.DFS())
+# print(G.DFS())
+print(G.BFS())
