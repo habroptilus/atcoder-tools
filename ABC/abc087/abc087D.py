@@ -50,15 +50,14 @@ class WDG():  # 重み付き有向グラフ(隣接リスト表現)
         node = s_head.next
         while node != s_head:
             new_x = self.x[s_head.index] + node.weight
-            if self.x[node.index] is not None and self.x[node.index] != new_x:
-                #print("node{}NG".format(node.index + 1))
-                return False
-            elif self.x[node.index] == new_x:
-                pass
-            else:
+            if self.x[node.index] is None:
                 #print("node{}".format(node.index + 1))
                 self.x[node.index] = new_x
-                return self._DFS(self.heads[node.index])
+                if not self._DFS(self.heads[node.index]):
+                    return False
+            elif self.x[node.index] != new_x:
+                #print("node{}NG".format(node.index + 1))
+                return False
             node = node.next
         return True
 
