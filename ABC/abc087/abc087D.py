@@ -1,14 +1,40 @@
 from collections import deque
 N, M = map(int, input().split())
-L = []
-R = []
-D = []
+G = [[] for _ in range(N)]
 for i in range(M):
     l, r, d = map(int, input().split())
-    L.append(l)
-    R.append(r)
-    D.append(d)
+    G[l - 1].append((r - 1, d))
+    G[r - 1].append((l - 1, -d))
+q = deque()
 
+x = [None] * N
+
+
+def _BFS(start):
+    q.append(start)
+    while len(q) != 0:
+        p = q.popleft()
+        for index, d in G[p]:
+            if x[index] is None:
+                x[index] = x[p] + d
+                q.append(index)
+            elif x[index] != x[p] + d:
+                return False
+    return True
+
+
+def BFS():
+    for i in range(N):
+        if x[i] is None:
+            x[i] = 0
+            if not _BFS(i):
+                return "No"
+    return "Yes"
+
+
+print(BFS())
+
+# 以下、最初に実装してTLEになったクラス
 inf = float("inf")
 
 
@@ -53,12 +79,12 @@ class WDG():  # 重み付き有向グラフ(隣接リスト表現)
         while node != s_head:
             new_x = self.x[s_head.index] + node.weight
             if self.x[node.index] is None:
-                #print("node{}".format(node.index + 1))
+                print("node{}".format(node.index + 1))
                 self.x[node.index] = new_x
                 if not self._DFS(self.heads[node.index]):
                     return False
             elif self.x[node.index] != new_x:
-                #print("node{}NG".format(node.index + 1))
+                print("node{}NG".format(node.index + 1))
                 return False
             node = node.next
         return True
@@ -94,9 +120,3 @@ class WDG():  # 重み付き有向グラフ(隣接リスト表現)
                 if not self._BFS(node):
                     return "No"
         return "Yes"
-
-
-G = WDG(N, M, L, R, D)
-# G.show_graph()
-# print(G.DFS())
-print(G.BFS())
