@@ -1,9 +1,7 @@
 from itertools import permutations
+import heapq
 N, M, R = map(int, input().split())
 r = list(map(int, input().split()))
-A = []
-B = []
-C = []
 D = [[] for _ in range(N)]
 inf = float("inf")
 for i in range(N):
@@ -12,7 +10,6 @@ for i in range(N):
             D[i].append(0)
         else:
             D[i].append(inf)
-
 
 for _ in range(M):
     a, b, c = map(int, input().split())
@@ -32,7 +29,32 @@ def WarshallFloyd(D):
     return D
 
 
-D = WarshallFloyd(D)
+def _dijkstra(D, s, F):
+    q = []
+    heapq.heappush(q, (0, s))
+    while len(q) != 0:
+        cost, index = heapq.heappop(q)
+        if F[s][index] < cost:
+            continue
+        for i in range(len(D)):
+            if cost + D[index][i] < F[s][i]:
+                F[s][i] = cost + D[index][i]
+                heapq.heappush(q, (F[s][i], i))
+    return F
+
+
+def Dijkstra(D):
+    F = [[inf] * len(D) for _ in range(len(D))]
+    for i in range(len(D)):
+        F[i][i] = 0
+        F = _dijkstra(D, i, F)
+    return F
+
+
+#W = WarshallFloyd(D)
+D = Dijkstra(D)
+# print(W)
+# print(D)
 Min = inf
 for e in permutations(r):
     s = 0
