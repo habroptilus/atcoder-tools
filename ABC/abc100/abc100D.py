@@ -1,38 +1,32 @@
+from itertools import product
 N, M = map(int, input().split())
-cakes = []
+X = []
+Y = []
+Z = []
 for _ in range(N):
-    cake = list(map(int, input().split()))
-    cakes.append(cake)
+    x, y, z = list(map(int, input().split()))
+    X.append(x)
+    Y.append(y)
+    Z.append(z)
 
 
-def evaluation(pattern):
+def compute(xyz, opr):
     """
-    >>> evaluation([1,2,-3])
-    6
-    >>> evaluation([1,-20,-3])
-    24
+    >>> compute((1,2,3),("+","-","+"))
+    2
     """
+    x, y, z = xyz
+    return eval(opr[0] + str(x) + opr[1] + str(y) + opr[2] + str(z))
 
-    return sum([abs(pattern[i]) for i in range(3)])
 
+oprs = list(product(("+", "-"), ("+", "-"), ("+", "-")))
 
-DP = [[None] * (M + 1) for _ in range(N + 1)]
-for i in range(N + 1):
-    DP[i][0] = [0, 0, 0]
+Max = -float("inf")
 
-for i in range(N):
-    for k in range(1, min(M + 1, i + 2)):
-        new = []
-        for j in range(3):
-            new.append(DP[i][k - 1][j] + cakes[i][j])
-        #print(i + 1, k)
-        if k == i + 1:
-            DP[i + 1][k] = new
-            break
-        if evaluation(DP[i][k]) > evaluation(new):
-            DP[i + 1][k] = DP[i][k]
-        else:
-            DP[i + 1][k] = new
+for opr in oprs:
+    L = [compute(xyz, opr) for xyz in zip(X, Y, Z)]
+    L.sort()
+    L.reverse()
+    Max = max(Max, sum(L[:M]))
 
-# print(DP[N][M])
-print(evaluation(DP[N][M]))
+print(Max)
