@@ -26,6 +26,7 @@ make_files(){
         for var in ${L[@]}
         do
             touch "$1$display_num$var.cpp"
+            echo "#include <bits/stdc++.h>\ntypedef long long ll;" > "$1$display_num$var.cpp"
         done
     fi
 }
