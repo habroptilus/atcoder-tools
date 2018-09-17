@@ -1,27 +1,21 @@
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
-typedef std::pair<int, int> pair;
-
-void print(std::vector<pair> x) {
-    std::cout << "[";
-    for (size_t i = 0; i < x.size(); i++) {
-        std::cout << "(" << x[i].first << ", " << x[i].second << ")";
-        if (i != x.size() - 1) {
-            std::cout << ", ";
-        }
-    }
-    std::cout << "]" << '\n';
-}
-
-bool compare_second(pair p1, pair p2) { return p1.second < p2.second; }
+#include <bits/stdc++.h>
+typedef long long ll;
 
 int main(int argc, char const *argv[]) {
-    for (size_t i = 10; i >= 1; i--) {
-        std::cout << i << '\n';
+    ll T = 3;
+    for (size_t x = 1; x < 100; x++) {
+        if (std::ceil((double)x / T) != (x + T - 1) / T) {
+            std::cout << std::ceil((double)x / T) << '\n';
+            std::cout << (x + T - 1) / T << '\n';
+        }
     }
-    size_t h = -1;
-    std::cout << h << '\n';
+    ll y = 10000000000000;
+    std::cout << typeid(std::ceil((double)y / T)).name() << '\n';
+    std::cout << std::ceil((double)y / T) << '\n';
+    std::cout << (y + T - 1) / T << '\n';
+
+    double hoge = 1.0;
+    ll fuga = 2;
+    std::cout << typeid(hoge * fuga).name() << '\n';
     return 0;
 }
