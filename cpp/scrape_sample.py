@@ -40,6 +40,10 @@ else:
         path_w = "{level_camel}/{level}{round:03d}/sample_{prob}/{filename}".format(
             level_camel=level.upper(), level=level, round=round, prob=prob, filename=filename)
         print(path_w)
-        with open(path_w, mode='w') as f:
-            f.write(content.strip())
+        if i % 2 == 0:
+            with open(path_w, mode='w') as f:
+                f.write(content.strip())
+        else:
+            with open(path_w, mode='w') as f:
+                f.write(content)
     print("Complete!")

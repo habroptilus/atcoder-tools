@@ -28,11 +28,15 @@ mkdir $level_camel/$level$display_round/outputs_$prob
 fi
 
 # compile c++ code
-g++ $level_camel/$level$display_round/$level$display_round$prob_camel.cpp --std=c++14
+g++ $level_camel/$level$display_round/$level$display_round$prob_camel.cpp --std=c++14 -o $level_camel/$level$display_round/$prob_camel.out
 
 for file in `ls $level_camel/$level$display_round/sample_$prob | grep input*` ; do
-    sample_num=`echo ${file:8:1}`
-    $level_camel/$level$display_round/a.out < $level_camel/$level$display_round/sample_$prob/$file > $level_camel/$level$display_round/outputs_$prob/output_$prob_$sample_num.txt
+    sample_index=`echo ${file:8:1}`
+    $level_camel/$level$display_round/$prob_camel.out < $level_camel/$level$display_round/sample_$prob/$file > $level_camel/$level$display_round/outputs_$prob/"output_${prob}_${sample_index}.txt"
 done
 
 # test
+for file in `ls $level_camel/$level$display_round/outputs_$prob | grep output*` ; do
+    sample_index=`echo ${file:9:1}`
+    diff $level_camel/$level$display_round/outputs_$prob/$file $level_camel/$level$display_round/sample_$prob/"answer_${prob}_${sample_index}.txt" 
+done
