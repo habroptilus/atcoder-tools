@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# $1=cource name(lower case)
+# $1=course name(lower case)
 # $2=number
 
 make_files(){
