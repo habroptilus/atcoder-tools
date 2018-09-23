@@ -23,17 +23,23 @@ r = requests.get(target_url)
 
 soup = BeautifulSoup(r.text, 'lxml')
 result = soup.find_all("pre")
-for i in range(len(result) // 2):
-    content = result[i + 1].string
-    if content is None:
-        continue
 
-    if i % 2 == 0:
-        filename = "input_{}_{}".format(prob, i // 2 + 1)
-    else:
-        filename = "answer_{}_{}".format(prob, i // 2 + 1)
-    path_w = "{level_camel}/{level}{round:03d}/sample_{prob}/{filename}".format(
-        level_camel=level.upper(), level=level, round=round, prob=prob, filename=filename)
-    print(path_w)
-    with open(path_w, mode='w') as f:
-        f.write(content.strip())
+if len(result) == 0:
+    print("Error in Scraping.")
+else:
+    print("Create sample files...")
+    for i in range(len(result) // 2):
+        content = result[i + 1].string
+        if content is None:
+            continue
+
+        if i % 2 == 0:
+            filename = "input_{}_{}.txt".format(prob, i // 2 + 1)
+        else:
+            filename = "answer_{}_{}.txt".format(prob, i // 2 + 1)
+        path_w = "{level_camel}/{level}{round:03d}/sample_{prob}/{filename}".format(
+            level_camel=level.upper(), level=level, round=round, prob=prob, filename=filename)
+        print(path_w)
+        with open(path_w, mode='w') as f:
+            f.write(content.strip())
+    print("Complete!")
