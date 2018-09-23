@@ -35,8 +35,15 @@ for file in `ls $level_camel/$level$display_round/sample_$prob | grep input*` ; 
     $level_camel/$level$display_round/$prob_camel.out < $level_camel/$level$display_round/sample_$prob/$file > $level_camel/$level$display_round/outputs_$prob/"output_${prob}_${sample_index}.txt"
 done
 
+echo "Starting Test..."
+total=`ls $level_camel/$level$display_round/outputs_$prob | grep -c output*`
+
+
 # test
 for file in `ls $level_camel/$level$display_round/outputs_$prob | grep output*` ; do
     sample_index=`echo ${file:9:1}`
-    diff $level_camel/$level$display_round/outputs_$prob/$file $level_camel/$level$display_round/sample_$prob/"answer_${prob}_${sample_index}.txt" 
+    printf "[${sample_index}/${total}] "
+    python compare.py $level_camel/$level$display_round/outputs_$prob/$file $level_camel/$level$display_round/sample_$prob/"answer_${prob}_${sample_index}.txt"
 done
+
+echo "Finished."
