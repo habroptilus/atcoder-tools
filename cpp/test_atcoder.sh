@@ -30,6 +30,8 @@ fi
 # compile c++ code
 g++ $level_camel/$level$display_round/$level$display_round$prob_camel.cpp --std=c++14 -o $level_camel/$level$display_round/$prob_camel.out
 
+echo "Compiled."
+
 for file in `ls $level_camel/$level$display_round/sample_$prob | grep input*` ; do
     sample_index=`echo ${file:8:1}`
     $level_camel/$level$display_round/$prob_camel.out < $level_camel/$level$display_round/sample_$prob/$file > $level_camel/$level$display_round/outputs_$prob/"output_${prob}_${sample_index}.txt"
