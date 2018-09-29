@@ -11,6 +11,7 @@ make_files(){
     if [ ! -e $1$display_num ];then
         mkdir $1$display_num
         cd $1$display_num
+        touch input.txt
         if [[ $1 = "abc"  ]] ; then
             L=(A B C D)
         elif [[ $1 = "agc" ]]; then
