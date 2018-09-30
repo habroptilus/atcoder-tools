@@ -22,8 +22,8 @@ LOGIN_URL = "https://beta.atcoder.jp/login"
 task_screen_name = "{}{:03d}_{}".format(level, round, prob)
 CPP_ID = 3003
 
-source_path = "{level_camel}/{level}{round:03d}/{level}{round}{prob}.cpp".format(
-    level_camel=level.upper(), level=level, round=round, prob=prob)
+source_path = "{level_camel}/{level}{round:03d}/{level}{round:03d}{prob_camel}.cpp".format(
+    level_camel=level.upper(), level=level, round=round, prob_camel=prob.upper())
 
 if os.path.exists(source_path):
     # 提出用ソースコードの読み込み

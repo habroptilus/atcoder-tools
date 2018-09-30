@@ -42,10 +42,22 @@ total=`ls $level_camel/$level$display_round/outputs_$prob | grep -c output*`
 
 
 # test
+passed_num=0
+passed_result=Passed.
+
 for file in `ls $level_camel/$level$display_round/outputs_$prob | grep output*` ; do
     sample_index=`echo ${file:9:1}`
     printf "[${sample_index}/${total}] "
-    python compare.py $level_camel/$level$display_round/outputs_$prob/$file $level_camel/$level$display_round/sample_$prob/"answer_${prob}_${sample_index}.txt"
+    judge=`python compare.py $level_camel/$level$display_round/outputs_$prob/$file $level_camel/$level$display_round/sample_$prob/"answer_${prob}_${sample_index}.txt"`
+    echo $judge
+    if [ ${judge} = ${passed_result} ];then
+         passed_num=`expr $passed_num + 1`
+    fi
 done
 
-echo "Finished."
+if [ $passed_num -eq $total ];then
+    echo "Passed all the tests!"
+    python submit.py $level $round $prob ;
+else
+    echo "${passed_num}/${total} samples are passed."
+fi

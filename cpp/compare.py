@@ -11,7 +11,7 @@ with open(path2) as f:
     str2 = f.read()
 
 if str1 == str2:
-    print("Pass.")
+    print("Passed.")
 else:
     print("Failed.")
     print("---Output------")
