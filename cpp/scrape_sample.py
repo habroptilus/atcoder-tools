@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import sys
+import config
 
 """
 :param level: contest level(lower case)
@@ -13,15 +14,36 @@ import sys
 :output_files: "ABC/abc092/sample/"直下にinputとanswerファイルを作成
 """
 
+# パラメータセット
 args = sys.argv
 level = args[1]
 round = int(args[2])
 prob = args[3]
+LOGIN_URL = "https://beta.atcoder.jp/login"
+
+# セッション開始
+sesstion = requests.session()
+
+# csrf_token取得
+r = sesstion.get(LOGIN_URL)
+s = BeautifulSoup(r.text, 'lxml')
+
+csrf_token = s.find(attrs={'name': 'csrf_token'}).get('value')
+
+
+# ログイン
+login_info = {
+    "csrf_token": csrf_token,
+    "username": config.USERNAME,
+    "password": config.PASSWORD
+}
+
+
 target_url = "https://beta.atcoder.jp/contests/{level}{round:03d}/tasks/{level}{round:03d}_{prob}".format(
     level=level, round=round, prob=prob)
-r = requests.get(target_url)
 
-soup = BeautifulSoup(r.text, 'lxml')
+html = sesstion.get(target_url, data=login_info).text
+soup = BeautifulSoup(html, 'lxml')
 
 lang = soup.find("span", class_="lang-ja")
 
