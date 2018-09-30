@@ -22,10 +22,10 @@ prob = args[3]
 LOGIN_URL = "https://beta.atcoder.jp/login"
 
 # セッション開始
-sesstion = requests.session()
+session = requests.session()
 
 # csrf_token取得
-r = sesstion.get(LOGIN_URL)
+r = session.get(LOGIN_URL)
 s = BeautifulSoup(r.text, 'lxml')
 
 csrf_token = s.find(attrs={'name': 'csrf_token'}).get('value')
@@ -38,12 +38,16 @@ login_info = {
     "password": config.PASSWORD
 }
 
+result = session.post(LOGIN_URL, data=login_info)
+result.raise_for_status()
+
 
 target_url = "https://beta.atcoder.jp/contests/{level}{round:03d}/tasks/{level}{round:03d}_{prob}".format(
     level=level, round=round, prob=prob)
 
-html = sesstion.get(target_url, data=login_info).text
-soup = BeautifulSoup(html, 'lxml')
+html = session.get(target_url)
+html.raise_for_status()
+soup = BeautifulSoup(html.text, 'lxml')
 
 lang = soup.find("span", class_="lang-ja")
 
