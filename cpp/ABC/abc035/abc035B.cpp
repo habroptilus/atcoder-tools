@@ -28,10 +28,16 @@ int main(int argc, char const *argv[]) {
         }
     }
 
+    x = std::abs(x);
+    y = std::abs(y);
     if (T == 1) {
         std::cout << x + y + q << '\n';
     } else {
-        std::cout << std::abs(x + y - q) << '\n';
+        if (x + y >= q) {
+            std::cout << x + y - q << '\n';
+        } else {
+            std::cout << (q - x - y) % 2 << '\n';
+        }
     }
     return 0;
 }
