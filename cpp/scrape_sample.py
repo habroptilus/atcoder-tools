@@ -55,6 +55,7 @@ if lang is None:
     result = soup.find_all("pre")
 else:
     result = lang.find_all("pre")
+    result = result[1:]
 
 if len(result) == 0:
     print("Error in Scraping.")
