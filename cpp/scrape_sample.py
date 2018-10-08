@@ -51,22 +51,29 @@ soup = BeautifulSoup(html.text, 'lxml')
 
 lang = soup.find("span", class_="lang-ja")
 
+file_i = 0
+
 if lang is None:
     result = soup.find_all("pre")
 else:
     result = lang.find_all("pre")
-    result = result[1:]
 
 if len(result) == 0:
     print("Error in Scraping.")
 else:
     print("Create sample files...")
-    for i in range(1, len(result)):
+
+    for i in range(len(result)):
         content = result[i].string
-        if (i - 1) % 2 == 0:
-            filename = "input_{}_{}.txt".format(prob, (i - 1) // 2 + 1)
+        if content is None:
+            continue
+
+        if file_i % 2 == 0:
+            filename = "input_{}_{}.txt".format(prob, file_i // 2 + 1)
         else:
-            filename = "answer_{}_{}.txt".format(prob, (i - 1) // 2 + 1)
+            filename = "answer_{}_{}.txt".format(prob, file_i // 2 + 1)
+
+        file_i += 1
         path_w = "{level_camel}/{level}{round:03d}/sample_{prob}/{filename}".format(
             level_camel=level.upper(), level=level, round=round, prob=prob, filename=filename)
         print(path_w)
