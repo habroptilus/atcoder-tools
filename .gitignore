@@ -107,3 +107,4 @@ venv.bak/
 outputs_*
 *.out
 input.txt
+config.py
