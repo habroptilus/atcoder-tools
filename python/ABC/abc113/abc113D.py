@@ -3,26 +3,24 @@ H, W, K = map(int, input().split())
 
 def get_com(W):
     N = [i for i in range(W)]
-    count = 0
-    count_edge = 0
+    weights = [0 for i in range(W)]
 
     for i in range(1 << len(N)):
         output = []
         flag = True
         for j in range(len(N)):
             if ((i >> j) & 1) == 1:
-                if output[-1] + 1 == N[j]:
+                if len(output) != 0 and output[-1] + 1 == N[j]:
                     flag = False
                     break
                 output.append(N[j])
         if flag:
-            if output[0] == 0:
-                count_edge += 1
-            if output[0] == 1 or output[1] == 1:
-                count += 1
-    return count, count_edge
+            for k in range(len(output)):
+                weights[output[k]] += 1
+    return weights
 
 
+weight = get_com(3)
 print(weight)
 mod = 10**9 + 7
 DP = [[None for j in range(W)] for i in range(H)]
