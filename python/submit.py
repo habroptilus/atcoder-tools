@@ -8,6 +8,7 @@ python submit.py abc 39 a
 
 import requests
 from bs4 import BeautifulSoup
+import re
 import sys
 import config
 import os.path
@@ -19,9 +20,9 @@ round = int(args[2])
 prob = args[3]
 LOGIN_URL = "https://beta.atcoder.jp/login"
 task_screen_name = "{}{:03d}_{}".format(level, round, prob)
-CPP_ID = 3003
+PYTHON_ID = 3023
 
-source_path = "{level_camel}/{level}{round:03d}/{level}{round:03d}{prob_camel}.cpp".format(
+source_path = "{level_camel}/{level}{round:03d}/{level}{round:03d}{prob_camel}.py".format(
     level_camel=level.upper(), level=level, round=round, prob_camel=prob.upper())
 
 if os.path.exists(source_path):
@@ -64,7 +65,7 @@ csrf_token = soup.find(attrs={'name': 'csrf_token'}).get('value')
 submit_info = {
     "data.TaskScreenName": task_screen_name,
     "csrf_token": csrf_token,
-    "data.LanguageId": CPP_ID,
+    "data.LanguageId": PYTHON_ID,
     "sourceCode": source_code
 }
 
