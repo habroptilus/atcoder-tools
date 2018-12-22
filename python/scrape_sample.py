@@ -19,7 +19,7 @@ args = sys.argv
 level = args[1]
 round = int(args[2])
 prob = args[3]
-LOGIN_URL = "https://beta.atcoder.jp/login"
+LOGIN_URL = "https://atcoder.jp/login"
 
 # セッション開始
 session = requests.session()
@@ -42,7 +42,7 @@ result = session.post(LOGIN_URL, data=login_info)
 result.raise_for_status()
 
 
-target_url = "https://beta.atcoder.jp/contests/{level}{round:03d}/tasks/{level}{round:03d}_{prob}".format(
+target_url = "https://atcoder.jp/contests/{level}{round:03d}/tasks/{level}{round:03d}_{prob}".format(
     level=level, round=round, prob=prob)
 
 html = session.get(target_url)
