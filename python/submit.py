@@ -18,7 +18,7 @@ args = sys.argv
 level = args[1]
 round = int(args[2])
 prob = args[3]
-LOGIN_URL = "https://beta.atcoder.jp/login"
+LOGIN_URL = "https://atcoder.jp/login"
 task_screen_name = "{}{:03d}_{}".format(level, round, prob)
 PYTHON_ID = 3023
 
@@ -54,7 +54,7 @@ login_info = {
 result = session.post(LOGIN_URL, data=login_info)
 result.raise_for_status()
 
-target_url = f"https://beta.atcoder.jp/contests/{level}{round:03d}/submit"
+target_url = f"https://atcoder.jp/contests/{level}{round:03d}/submit"
 
 html = session.get(target_url)
 html.raise_for_status()
