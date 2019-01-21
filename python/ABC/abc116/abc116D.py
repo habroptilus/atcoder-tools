@@ -1,41 +1,36 @@
-from collections import Counter
-from heapq import heappush, heappop
 N, K = map(int, input().split())
 sushi_list = []
+max_d = [0] * N
 for i in range(N):
     t, d = map(int, input().split())
-    sushi_list.append((t, d))
-
+    sushi_list.append((t - 1, d))
+    max_d[t - 1] = max(max_d[t - 1], d)
 
 sushi_list.sort(key=lambda x: x[1], reverse=True)
-S_x = sushi_list[:K]
-c = Counter()
-f_p = 0
-
-for t, d in S_x:
-    c[t] += 1
-    f_p += d
-
-Q = []
-R = []
-
-for sushi in sushi_list:
-    if sushi[0] in c.keys():
-        if c[sushi[0]] > 1:
-            heappush(Q, sushi[1])
+good = []
+for i in range(N):
+    if max_d[sushi_list[i][0]] == sushi_list[i][1]:
+        good.append(True)
+        max_d[sushi_list[i][0]] = 0
     else:
-        heappush(R, -sushi[1])
-p = len(c)
-ans = f_p + p**2
+        good.append(False)
 
+s = sum([sushi[1] for sushi in sushi_list[:K]])
+p = len(set([sushi[0] for sushi in sushi_list[:K]]))
+ans = s + p**2
+r = K - 1
+l = K
 while True:
-    print(Q, R)
-    if len(Q) == 0 or len(R) == 0:
+    while r >= 0 and good[r]:
+        r -= 1
+    while l < N and not good[l]:
+        l += 1
+    if r < 0 or l >= N:
         break
-    min_q = heappop(Q)
-    max_r = -heappop(R)
+    s = s - sushi_list[r][1] + sushi_list[l][1]
     p += 1
-    f_p = f_p + max_r - min_q
-    ans = max(ans, f_p + p**2)
+    ans = max(ans, s + p**2)
+    r -= 1
+    l += 1
 
 print(ans)
