@@ -14,22 +14,14 @@ for n in range(2, N + 1):
     if n > 1:
         c[n] += 1
 
-d = Counter()
-for v in c.values():
-    if 2 <= v:
-        d["3"] += 1
-    if 4 <= v:
-        d["5"] += 1
-    if 14 <= v:
-        d["15"] += 1
-    if 24 <= v:
-        d["25"] += 1
-    if 74 <= v:
-        d["75"] += 1
+
+def num(m):  # 指数がm-1以上の素因数の個数を求める
+    return len(list(filter(lambda x: x >= m - 1, c.values())))
+
 
 ans = 0
-ans += d["75"]
-ans += (d["5"] - 1) * d["15"]
-ans += (d["3"] - 1) * d["25"]
-ans += (d["3"] - 2) * d["5"] * (d["5"] - 1) // 2
+ans += num(75)
+ans += (num(5) - 1) * num(15)
+ans += (num(3) - 1) * num(25)
+ans += (num(3) - 2) * num(5) * (num(5) - 1) // 2
 print(ans)
