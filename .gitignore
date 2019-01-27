@@ -105,6 +105,7 @@ venv.bak/
 
 # modify
 outputs_*
+sample_*
 *.out
 input.txt
 config.py
