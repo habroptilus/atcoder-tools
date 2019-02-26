@@ -5,8 +5,6 @@ from bs4 import BeautifulSoup
 from pathlib import Path
 import logging as lg
 
-PYTHON_ID = 3023
-
 
 class Submitter:
 
