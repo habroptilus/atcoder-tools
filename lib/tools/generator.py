@@ -21,7 +21,7 @@ class CodeGeneratorInterface:
         raise NotImplementedError
 
     def get_problems(self, level, rnd):
-        temp = {"abc": "abcd".split(), "agc": "abcdef".format()}
+        temp = {"abc": "abcd".split(), "agc": "abcdef".split()}
         if level in temp.keys():
             return temp[level]
         elif level == "arc":

@@ -14,6 +14,9 @@ class ScrapeTask(luigi.Task):
     username = luigi.Parameter()
     password = luigi.Parameter()
 
+    def requires(self):
+        return
+
     def output(self):
         return luigi.LocalTarget(f"{self.src_dir}/{self.level}/{self.rnd}/sample_{self.prob}.json")
 
@@ -58,6 +61,25 @@ class SubmitTask(luigi.Task):
         lang_id = params[self.lang]["id"]
         submitter = Submitter(self.username, self.password)
         submitter.submit(self.level, self.rnd, self.prob, extension, lang_id)
+        self.is_done = True
+
+    def complete(self):
+        return self.is_done
+
+
+class CodeGenerateTask(luigi.Task):
+    is_done = False
+    lang = luigi.Parameter()
+    level = luigi.Parameter()
+    rnd = luigi.IntParameter()
+    src_dir = luigi.Parameter()
+
+    def requires(self):
+        return
+
+    def run(self):
+        generator = params[self.lang]["generator"]
+        generator.run(self.src_dir, self.level, self.rnd)
         self.is_done = True
 
     def complete(self):
