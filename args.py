@@ -12,6 +12,8 @@ def get_args(parser):
                         help='directory for source code')
     parser.add_argument('--submit', dest='submit', action='store_true',
                         help='whether to submit when all test are passed.')
+    parser.add_argument('--mkdir', dest='mkdir', action='store_true',
+                        help='whether to make directory and source code.')
     parser.add_argument('--prob', dest='prob', type=str, choices="abcdef".split(),
                         help="choices : a,b,c,d,e,f")
     parser.add_argument('--level', dest='level', default="abc", type=str, choices=["abc", "arc", "agc"],

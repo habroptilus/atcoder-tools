@@ -1,9 +1,10 @@
 """mainスクリプト."""
-from tools import execute_main
+from lib import CodeGenerateTask, SubmitTask, TestTask
 from args import get_args
 import argparse
 import logging as lg
 from config import USERNAME, PASSWORD
+import luigi
 
 # set args
 parser = argparse.ArgumentParser(
@@ -15,7 +16,13 @@ if args.verbose:
     lg.getLogger().setLevel(lg.INFO)
     lg.info("Verbose mode activated")
 
-params = vars(args)
-del params["verbose"]
-execute_main(**params, data_dir=data_dir, real_data_filebases=real_data_filebases,
-             experiment_flag_to_models=experiment_flag_to_models, result_dir=result_dir)
+if args.mkdir:
+    luigi.build([CodeGenerateTask(lang=args.lang, level=args.level,
+                                  rnd=args.rnd, src_dir=args.src_dir)], workers=1, local_scheduler=True)
+
+elif args.submit:
+    luigi.build([SubmitTask(lang=args.lang, level=args.level, rnd=args.rnd, src_dir=args.src_dir,
+                            username=USERNAME, password=PASSWORD)], workers=1, local_scheduler=True)
+else:
+    luigi.build([TestTask(lang=args.lang, level=args.level, rnd=args.rnd, src_dir=args.src_dir,
+                          username=USERNAME, password=PASSWORD)], workers=1, local_scheduler=True)
