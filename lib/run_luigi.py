@@ -61,7 +61,8 @@ class SubmitTask(luigi.Task):
         extension = params[self.lang]["extension"]
         lang_id = params[self.lang]["id"]
         submitter = Submitter(self.username, self.password)
-        submitter.submit(self.level, self.rnd, self.prob, extension, lang_id)
+        submitter.submit(Path(self.src_dir), self.level, self.rnd,
+                         self.prob, extension, lang_id)
         self.is_done = True
 
     def complete(self):
