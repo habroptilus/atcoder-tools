@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 class Scraper:
-    BASE_URL = Path("https://atcoder.jp")
+    BASE_URL = "https://atcoder.jp"
 
     def __init__(self, username, password):
         self.username = username
@@ -23,7 +23,7 @@ class Scraper:
 
         # セッション開始
         session = requests.session()
-        login_url = self.BASE_URL / "login"
+        login_url = f"{self.BASE_URL}/login"
         # csrf_token取得
         r = session.get(login_url)
         s = BeautifulSoup(r.text, 'lxml')
@@ -40,8 +40,7 @@ class Scraper:
         result = session.post(login_url, data=login_info)
         result.raise_for_status()
 
-        target_url = self.BASE_URL / \
-            f"/contests/{level}{round:03d}/tasks/{level}{round:03d}_{prob}"
+        target_url = f"{self.BASE_URL}/contests/{level}{round:03d}/tasks/{level}{round:03d}_{prob}"
 
         html = session.get(target_url)
         html.raise_for_status()
@@ -70,7 +69,7 @@ class Scraper:
                 if file_i % 2 == 0:
                     sample["input"] = content
                 else:
-                    sample["output"] = content
+                    sample["answer"] = content
                 file_i += 1
                 if len(sample) == 2:
                     samples.append(sample)

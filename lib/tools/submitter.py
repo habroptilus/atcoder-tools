@@ -8,7 +8,7 @@ import logging as lg
 
 class Submitter:
 
-    BASE_URL = Path("https://atcoder.jp")
+    BASE_URL = "https://atcoder.jp"
 
     def __init__(self, username, password):
         self.username = username
@@ -18,7 +18,7 @@ class Submitter:
         """全て小文字"""
         # セッション開始
         session = requests.session()
-        login_url = self.BASE_URL / "login"
+        login_url = f"{self.BASE_URL}/login"
 
         # csrf_token取得
         r = session.get(login_url)
@@ -36,7 +36,7 @@ class Submitter:
         result = session.post(login_url, data=login_info)
         result.raise_for_status()
 
-        submit_url = self.BASE_URL / f"contests/{level}{round:03d}/submit"
+        submit_url = f"{self.BASE_URL}/contests/{level}{round:03d}/submit"
 
         html = session.get(submit_url)
         html.raise_for_status()

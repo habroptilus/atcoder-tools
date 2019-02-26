@@ -4,6 +4,7 @@ from luigi.util import requires
 from .tools import Scraper, Submitter, Tester
 import json
 from .lang_params import params
+from pathlib import Path
 
 
 class ScrapeTask(luigi.Task):
@@ -18,7 +19,7 @@ class ScrapeTask(luigi.Task):
         return
 
     def output(self):
-        return luigi.LocalTarget(f"{self.src_dir}/{self.level}/{self.rnd}/sample_{self.prob}.json")
+        return luigi.LocalTarget(f"{self.src_dir}/{self.level}/{self.rnd:03d}/sample_{self.prob}.json")
 
     def run(self):
         s = Scraper(self.username, self.password)
@@ -34,7 +35,7 @@ class TestTask(luigi.Task):
 
     def run(self):
         extension = params[self.lang]["extension"]
-        source_path = f"{self.src_dir}/{self.level}/{self.rnd}/code_{self.prob}.{extension}"
+        source_path = f"{self.src_dir}/{self.level}/{self.rnd:03d}/code_{self.prob}.{extension}"
         with self.input().open("r") as f:
             samples = json.load(f)
         inputs = [sample["input"] for sample in samples]
@@ -79,7 +80,7 @@ class CodeGenerateTask(luigi.Task):
 
     def run(self):
         generator = params[self.lang]["generator"]
-        generator.run(self.src_dir, self.level, self.rnd)
+        generator.run(Path(self.src_dir), self.level, self.rnd)
         self.is_done = True
 
     def complete(self):

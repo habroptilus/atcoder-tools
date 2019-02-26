@@ -21,8 +21,8 @@ if args.mkdir:
                                   rnd=args.rnd, src_dir=args.src_dir)], workers=1, local_scheduler=True)
 
 elif args.submit:
-    luigi.build([SubmitTask(lang=args.lang, level=args.level, rnd=args.rnd, src_dir=args.src_dir,
+    luigi.build([SubmitTask(lang=args.lang, level=args.level, rnd=args.rnd, src_dir=args.src_dir, prob=args.prob,
                             username=USERNAME, password=PASSWORD)], workers=1, local_scheduler=True)
 else:
-    luigi.build([TestTask(lang=args.lang, level=args.level, rnd=args.rnd, src_dir=args.src_dir,
+    luigi.build([TestTask(lang=args.lang, level=args.level, rnd=args.rnd, src_dir=args.src_dir, prob=args.prob,
                           username=USERNAME, password=PASSWORD)], workers=1, local_scheduler=True)
