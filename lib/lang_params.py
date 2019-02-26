@@ -1,8 +1,9 @@
-from tools import PythonExecutor
+from tools import PythonExecutor, PythonCodeGenerator
 params = {
     "python": {
         "id": 3023,
         "extension": "py",
-        "executor": PythonExecutor()
+        "executor": PythonExecutor(),
+        "generator": PythonCodeGenerator()
     }
 }
