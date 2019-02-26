@@ -2,16 +2,7 @@
 
 import requests
 from bs4 import BeautifulSoup
-import logging as lg
 from pathlib import Path
-
-"""
-:param level: contest level(lower case)
-:param round: number of round(ex 092)
-:param prob: problem(a,b,c,d...)
-
-:output_files: "ABC/abc092/sample/"直下にinputとanswerファイルを作成
-"""
 
 
 class Scraper:
@@ -22,6 +13,14 @@ class Scraper:
         self.password = password
 
     def scrape(self, level, round, prob):
+        """
+        :param level: contest level(ex abc)
+        :param round: number of round(ex 92)
+        :param prob: problem(a,b,c,d...)
+
+        :output_files: [{"input": content,"answer": content},...]
+        """
+
         # セッション開始
         session = requests.session()
         login_url = self.BASE_URL / "login"
@@ -50,6 +49,7 @@ class Scraper:
 
         lang = soup.find("span", class_="lang-ja")
 
+        samples = []
         file_i = 0
 
         if lang is None:
@@ -61,20 +61,19 @@ class Scraper:
             print("Error in Scraping.")
         else:
             print("Create sample files...")
-
+            sample = {}
             for i in range(len(result)):
                 content = result[i].string
                 if content is None:
                     continue
 
                 if file_i % 2 == 0:
-                    filename = "input_{}_{}.txt".format(prob, file_i // 2 + 1)
+                    sample["input"] = content
                 else:
-                    filename = "answer_{}_{}.txt".format(prob, file_i // 2 + 1)
-
+                    sample["output"] = content
                 file_i += 1
-                save_path = f"{level}/{level}{round:03d}/sample_{prob}/{filename}"
-                lg.info(save_path)
-                with open(save_path, mode='w') as f:
-                    f.write(content.lstrip())
-            lg.info("Complete!")
+                if len(sample) == 2:
+                    samples.append(sample)
+                    sample = {}
+
+        return samples
