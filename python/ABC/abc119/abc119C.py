@@ -17,7 +17,6 @@ for p in products:
     cost = sum([10 * (elem[1] - 1) for elem in scores[:3] if elem[1] >= 1])
     if 0 in temp:
         continue
-    sorted(temp)
     cost += sum([abs(target[i] - temp[i]) for i in range(3)])
     ans = min(ans, cost)
 print(ans)
