@@ -31,11 +31,10 @@ class ExecutorInterface:
 class PythonExecutor(ExecutorInterface):
     def execute(self, source_path, data):
         cmd = f"python {source_path}"
-        print(data)
         p = subprocess.Popen(
             cmd.split(), stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        output = p.communicate(data)[0]
-        return output
+        output = p.communicate(data.encode())[0]
+        return output.decode()
 
 
 class CppExecutor(ExecutorInterface):
