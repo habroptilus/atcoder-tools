@@ -1,9 +1,9 @@
 """Luigi tasks"""
 import luigi
 from luigi.util import requires
-from tools import Scraper, Submitter, Tester
+from .tools import Scraper, Submitter, Tester
 import json
-from lang_params import params
+from .lang_params import params
 
 
 class ScrapeTask(luigi.Task):

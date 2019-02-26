@@ -1,8 +1,8 @@
-from .executor import PythonExecutor
+from .executor import PythonExecutor, CppExecutor
 from .scraper import Scraper
 from .submitter import Submitter
 from .tester import Tester
-from .generator import PythonCodeGenerator
+from .generator import PythonCodeGenerator, CppCodeGenerator
 
 
 __all__ = [
@@ -10,5 +10,7 @@ __all__ = [
     "Scraper",
     "Submitter",
     "Tester",
-    "PythonCodeGenerator"
+    "PythonCodeGenerator",
+    "CppCodeGenerator",
+    "CppExecutor"
 ]

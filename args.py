@@ -8,6 +8,8 @@ def get_args(parser):
     :return:
     """
     # only many times args
+    parser.add_argument("-v", "--verbose", action='store_true',
+                        help="""Verbose mode, more log messages""")
     parser.add_argument('--src-dir', dest='src_dir', default=Path("src"), type=Path,
                         help='directory for source code')
     parser.add_argument('--submit', dest='submit', action='store_true',
@@ -18,7 +20,7 @@ def get_args(parser):
                         help="choices : a,b,c,d,e,f")
     parser.add_argument('--level', dest='level', default="abc", type=str, choices=["abc", "arc", "agc"],
                         help='choices : abc,arc,agc')
-    parser.add_argument('--rnd', dest='params_start', type=int,
+    parser.add_argument('--rnd', dest='rnd', type=int,
                         help='int')
     parser.add_argument('--lang', dest='lang', default="python", type=str, choices=["python", "cpp"],
                         help='choices : python, cpp')

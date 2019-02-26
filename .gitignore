@@ -102,8 +102,9 @@ venv.bak/
 .mypy_cache/
 
 # modify
-outputs_*
+samples_*
 sample_*
+outputs_*
 *.out
 input.txt
 config.py
