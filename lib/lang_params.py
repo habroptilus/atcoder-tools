@@ -1,10 +1,8 @@
-{
+from tools import PythonExecutor
+params = {
     "python": {
-        "ID": 3023,
-        "extension": "py"
-    },
-    "cpp": {
-        "ID": 3003,
-        "extension": "cpp"
+        "id": 3023,
+        "extension": "py",
+        "executor": PythonExecutor()
     }
 }
