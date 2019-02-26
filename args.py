@@ -1,5 +1,4 @@
 """argparse"""
-from pathlib import Path
 
 
 def get_args(parser):
