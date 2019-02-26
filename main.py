@@ -16,6 +16,8 @@ if args.verbose:
     lg.getLogger().setLevel(lg.INFO)
     lg.info("Verbose mode activated")
 
+luigi.configuration.LuigiConfigParser.add_config_path('lib/tasks/luigi.cfg')
+
 if args.mkdir:
     luigi.build([CodeGenerateTask(lang=args.lang, level=args.level,
                                   rnd=args.rnd, src_dir=args.src_dir)], workers=1, local_scheduler=True)
