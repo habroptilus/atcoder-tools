@@ -2,7 +2,7 @@
 import logging as lg
 
 
-class Judge:
+class Tester:
     def __init__(self):
         return
 
