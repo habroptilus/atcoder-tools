@@ -9,6 +9,7 @@ python main.py --mkdir --level abc --rnd 63 --lang python
 ```
 
 pythonファイルの雛形が各問題ごとに作られる.
+srcディレクトリがない場合はまとめて作られる.
 
 ## test
 
@@ -28,9 +29,13 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 ```
 
 
-## default parameters
+## parameters
 
-* lang: python
-* level: abc
-
-他は設定しないと動かない
+* -v,--verbose (verbose mode)
+* --lang (default : python)
+* --level (default : abc) 
+* --rnd (コンテストの回数) 
+* --prob (A問題とか.小文字で指定)
+* --src-dir (提出コードのディレクトリ. default: src)
+* --submit (つけるとテストしたあと全部パスしてたら提出する.)
+* --mkdir (つけると雛形生成)
