@@ -32,8 +32,8 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 ## parameters
 
 * -v,--verbose (verbose mode)
-* --lang (default : python)
-* --level (default : abc) 
+* --lang (python(default), cpp)
+* --level (abc(default), arc, agc) 
 * --rnd (コンテストの回数) 
 * --prob (A問題とか.小文字で指定)
 * --src-dir (提出コードのディレクトリ. default: src)
@@ -46,3 +46,6 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 * production : 提出用コードも置いてある  
 
 productionは基本masterの先頭から生えるように適宜rebaseする.
+
+## caution
+企業コンなどには対応してないです。
