@@ -66,6 +66,8 @@ class Scraper:
                 if content is None:
                     continue
 
+                content = content.replace("\r", "")
+
                 if file_i % 2 == 0:
                     sample["input"] = content
                 else:
