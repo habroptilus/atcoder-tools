@@ -1,4 +1,4 @@
-# atcoder
+# AtCoder
 
 ## ファイル,ディレクトリ作成
 
@@ -39,3 +39,8 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 * --src-dir (提出コードのディレクトリ. default: src)
 * --submit (つけるとテストしたあと全部パスしてたら提出する.)
 * --mkdir (つけると雛形生成)
+
+## branch
+
+* master : ツールのみ置いてある
+* production : 提出用コードも置いてある  
