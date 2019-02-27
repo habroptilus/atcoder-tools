@@ -44,3 +44,5 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 
 * master : ツールのみ置いてある
 * production : 提出用コードも置いてある  
+
+productionは基本masterの先頭から生えるように適宜rebaseする.
