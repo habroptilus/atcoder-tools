@@ -46,6 +46,7 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 * production : 提出用コードも置いてある  
 
 productionは基本masterの先頭から生えるように適宜rebaseする.
+`git rebase master`
 
 ## caution
 企業コンなどには対応してないです。
