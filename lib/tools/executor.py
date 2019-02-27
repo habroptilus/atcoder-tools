@@ -1,6 +1,6 @@
+"""Executors."""
 import subprocess
 from pathlib import Path
-from shutil import rmtree
 
 
 class ExecutorInterface:
