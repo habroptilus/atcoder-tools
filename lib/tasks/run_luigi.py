@@ -19,7 +19,7 @@ class ScrapeTask(luigi.Task):
         return
 
     def output(self):
-        return luigi.LocalTarget(f"{self.src_dir}/{self.level}/{self.rnd:03d}/sample_{self.prob}.json")
+        return luigi.LocalTarget(f"{self.src_dir}/{self.level}/{self.rnd:03d}/samples/sample_{self.prob}.json")
 
     def run(self):
         s = Scraper(self.username, self.password)
@@ -35,7 +35,7 @@ class TestTask(luigi.Task):
 
     def run(self):
         extension = params[self.lang]["extension"]
-        source_path = f"{self.src_dir}/{self.level}/{self.rnd:03d}/code_{self.prob}.{extension}"
+        source_path = f"{self.src_dir}/{self.level}/{self.rnd:03d}/{self.lang}/code_{self.prob}.{extension}"
         with self.input().open("r") as f:
             samples = json.load(f)
         inputs = [sample["input"] for sample in samples]
@@ -62,7 +62,7 @@ class SubmitTask(luigi.Task):
         lang_id = params[self.lang]["id"]
         submitter = Submitter(self.username, self.password)
         submitter.submit(Path(self.src_dir), self.level, self.rnd,
-                         self.prob, extension, lang_id)
+                         self.prob, self.lang, extension, lang_id)
         self.is_done = True
 
     def complete(self):

@@ -14,7 +14,7 @@ class Submitter:
         self.username = username
         self.password = password
 
-    def submit(self, src_dir, level, rnd, prob, extension, lang_id):
+    def submit(self, src_dir, level, rnd, prob, lang, extension, lang_id):
         """全て小文字"""
         # セッション開始
         session = requests.session()
@@ -46,7 +46,7 @@ class Submitter:
         task_screen_name = f"{level}{rnd:03d}_{prob}"
 
         source_code = self.load_source_code(
-            src_dir, level, rnd, prob, extension)
+            src_dir, level, rnd, prob, lang, extension)
 
         submit_info = {
             "data.TaskScreenName": task_screen_name,
@@ -63,8 +63,9 @@ class Submitter:
         else:
             raise Exception("Error in submitting...")
 
-    def load_source_code(self, src_dir, level, rnd, prob, extension):
-        source_path = src_dir / f"{level}/{rnd:03d}/code_{prob}.{extension}"
+    def load_source_code(self, src_dir, level, rnd, prob, lang, extension):
+        source_path = src_dir / \
+            f"{level}/{rnd:03d}/{lang}/code_{prob}.{extension}"
         if source_path.exists():
             # 提出用ソースコードの読み込み
             with source_path.open("r") as f:
