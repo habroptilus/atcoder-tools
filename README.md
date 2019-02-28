@@ -1,6 +1,19 @@
 # AtCoder
 
-## ファイル,ディレクトリ作成
+## set up
+
+`config.py`を直下に作成.
+
+使用したいAtCoderアカウントの情報を記載.
+
+```python:config.py
+USERNAME = "*********"
+PASSWORD = "*********"
+```
+デフォルトで`config.py`は`.gitignore`に含まれており、git管理から外れている.
+
+
+## code generation
 
 ABC063のファイル、ディレクトリを作る場合(言語はpythonを使用)
 
@@ -40,13 +53,6 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 * --submit (つけるとテストしたあと全部パスしてたら提出する.)
 * --mkdir (つけると雛形生成)
 
-## branch
-
-* master : ツールのみ置いてある
-* production : 提出用コードも置いてある  
-
-productionは基本masterの先頭から生えるように適宜rebaseする.
-`git rebase master`
 
 ## caution
 企業コンなどには対応してないです。
