@@ -61,5 +61,5 @@ class CppExecutor(ExecutorInterface):
         execute_cmd = f"g++ {temp_exe_path}"
         p = subprocess.Popen(execute_cmd.split(),
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        output = p.communicate(data)[0]
-        return output
+        output = p.communicate(data.encode())[0]
+        return output.decode()
