@@ -52,13 +52,13 @@ class CppExecutor(ExecutorInterface):
         outputs = []
         # execute
         for data in inputs:
-            outputs.append(self.execute(source_path, data))
+            outputs.append(self.execute(temp_exe_path, data))
         # remove execution file
         temp_exe_path.unlink()
         return outputs
 
     def execute(self, temp_exe_path, data):
-        execute_cmd = f"{temp_exe_path}"
+        execute_cmd = f"./{temp_exe_path}"
         p = subprocess.Popen(execute_cmd.split(),
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         output = p.communicate(data.encode())[0]

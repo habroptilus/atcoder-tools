@@ -106,3 +106,4 @@ samples
 *.out
 input.txt
 config.py
+.vscode
