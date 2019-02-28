@@ -55,4 +55,4 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 
 
 ## caution
-企業コンなどには対応してないです。
+企業コンには未対応.
