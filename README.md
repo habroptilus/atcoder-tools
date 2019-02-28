@@ -56,3 +56,8 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 
 ## caution
 企業コンには未対応.
+
+## branch 
+
+* master : ツールのみが入っている.
+* production : 自分の提出コードも含めている.
