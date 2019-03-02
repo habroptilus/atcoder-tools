@@ -66,6 +66,7 @@ class Scraper:
                     continue
 
                 content = content.replace("\r", "")
+                content = content.lstrip()
 
                 if file_i % 2 == 0:
                     sample["input"] = content
