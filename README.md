@@ -1,4 +1,4 @@
-# AtCoder
+# atcoder-tools
 
 ## set up
 
@@ -57,7 +57,6 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 ## caution
 企業コンには未対応.
 
-## branch 
+## src
 
-* master : ツールのみが入っている.
-* production : 自分の提出コードも含めている.
+srcはこのリポジトリでは管理しないで別のリポジトリとして管理.
