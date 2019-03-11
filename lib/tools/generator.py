@@ -20,14 +20,10 @@ class CodeGeneratorInterface:
         raise NotImplementedError
 
     def get_problems(self, level, rnd):
-        temp = {"abc": list("abcd"), "agc": list("abcdef")}
+        temp = {"abc": list("abcd"), "arc": list(
+            "abcd"), "agc": list("abcdef")}
         if level in temp.keys():
             return temp[level]
-        elif level == "arc":
-            if rnd >= 57:
-                return "cdef".split()
-            else:
-                return "abcd".split()
         else:
             raise Exception("Invalid level.")
 
