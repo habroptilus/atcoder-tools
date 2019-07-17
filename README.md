@@ -60,3 +60,59 @@ python main.py --submit  --level abc --rnd 63 --prob a --lang python
 ## src
 
 srcはこのリポジトリでは管理しないで別のリポジトリとして管理.
+
+# atcoder-tools (English)
+
+## set up 
+
+Create `config.py` as the following.
+
+Fill in AtCoder credentials at config.py.
+
+```python:config.py
+USERNAME = "*********"
+PASSWORD = "*********"
+```
+`config.py` is included in `.gitignore` so as not to track credentials.
+
+## code generation
+
+i.e.) How to create template directories/files for ABC063. (Language: python)
+
+```
+python main.py --mkdir --level abc --rnd 63 --lang python
+```
+python template files will be created for each problem.
+src directory will be created as necessary.
+
+## test
+
+i.e.) How to code test ABC063 problem A in python.
+
+```
+python main.py  --level abc --rnd 63 --prob a --lang python
+```
+
+## submit
+
+Test for all samples and submit if all pass.
+
+```
+python main.py --submit  --level abc --rnd 63 --prob a --lang python
+```
+## parameters
+
+* -v,--verbose (verbose mode)
+* --lang (python(default), cpp)
+* --level (abc(default), arc, agc) 
+* --rnd (rounds i.e.: ABC063 -> 63) 
+* --prob (problem A would be denoted as a. In lower case)
+* --src-dir (Directory for submission. default: src)
+* --submit (flag for submission after passing all test cases)
+* --mkdir (flag for creating template)
+
+## caution
+Sponsored contests are not implemented.
+
+## src
+src directory will be managed in another repo.
